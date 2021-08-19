@@ -14,10 +14,13 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 import os
 print(os. getcwd())
-diagram01 = np.load("C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/USB DISK/Matrice1100mediumblanc4.npy")
+tingsten_path = "C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/USB DISK"
+txa_path = '/home/txa/Documents/myFlightDeck/Dash_PingPong'
+path = txa_path
+diagram01 = np.load(path+"/Matrice1100mediumblanc4.npy")
 #diagram02 = np.load("/home/txa/Documents/data/ball-classifier-frontend/result.txt")
 
-diagram02_string = open('C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/USB DISK/result.txt', 'r').read()
+diagram02_string = open(path+'/result.txt', 'r').read()
 data = diagram02_string.split('\n')
 colour_output = data[0].split(';')[:-1]
 tensor_data = data[1].split(';')[:-1]
@@ -27,7 +30,18 @@ svm_data = data[2].split(';')[:-1]
 svm_range = list(range(len(svm_data)))
 svm_pred = data[3].split(';')[:-1]
 
-
+line01 = data[4].split(';')[:-1]
+line01 = list(map(float, line01))
+x1_01 = list(range(len(line01)))
+line02 = data[5].split(';')[:-1]
+line02 = list(map(float, line02))
+x1_02 = list(range(len(line02)))
+line03 = data[6].split(';')[:-1]
+line03 = list(map(float, line03))
+x1_03 = list(range(len(line03)))
+live01 = data[7].split(';')[:-1]
+live01 = list(map(float, live01))
+x1_live = list(range(len(live01)))
 
 svm_data = list(map(float, svm_data))
 svm_pred = list(map(float, svm_pred))
@@ -48,10 +62,35 @@ x_current = list(range(600))
 print(x_current)
 vibration01_graph = go.Figure()
 
+
 # for each in diagram01:
-vibration01_graph.add_trace(go.Scatter(x=x_current, y=diagram01[10],
+# vibration01_graph.add_trace(go.Scatter(x=x_current, y=diagram01[10],
+#                             mode='lines',
+#                             name='THROW: VIBRATION'))
+
+#array is ordered ['orange', 'white', 'yellow']
+colour_array = ['#ff7400', '#d9dadc', '#fcfd85']
+#JAUNE, BLANC, ROUGE + LIVE
+vibration01_graph.add_trace(go.Scatter(x=x1_01, y=line01,
                             mode='lines',
-                            name='THROW: VIBRATION'))
+                            name='One',
+                            marker=dict( color='#fcfd85')))
+
+vibration01_graph.add_trace(go.Scatter(x=x1_02, y=line02,
+                            mode='lines',
+                            name='Two',
+                            marker=dict( color='#d9dadc')
+                            ))
+
+vibration01_graph.add_trace(go.Scatter(x=x1_03, y=line03,
+                            mode='lines',
+                            name='Three',
+                            marker=dict( color='#ff7400')))
+
+vibration01_graph.add_trace(go.Scatter(x=x1_live, y=live01,
+                            mode='lines',
+                            name='Live',
+                            marker=dict( color='#000000')))
 
 svm_graph = go.Figure()
 
@@ -198,7 +237,7 @@ app.layout = html.Div([
             Input('interval-component', 'n_intervals'), )
 def clean_data(n):
 
-    diagram02_string = open('C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/USB DISK/result.txt', 'r').read() 
+    diagram02_string = open(path+'/result.txt', 'r').read() 
     data = diagram02_string.split('\n')
     colour_output = data[0].split(';')[:-1]
     tensor_data = data[1].split(';')[:-1]
