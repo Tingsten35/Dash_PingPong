@@ -74,7 +74,7 @@ colour_array = ['#ff7400', '#d9dadc', '#fcfd85']
 vibration01_graph.add_trace(go.Scatter(x=x1_01, y=line01,
                             mode='lines',
                             name='One',
-                            marker=dict( color='#fcfd85')))
+                            marker=dict( color='#ff7400')))
 
 vibration01_graph.add_trace(go.Scatter(x=x1_02, y=line02,
                             mode='lines',
@@ -85,10 +85,10 @@ vibration01_graph.add_trace(go.Scatter(x=x1_02, y=line02,
 vibration01_graph.add_trace(go.Scatter(x=x1_03, y=line03,
                             mode='lines',
                             name='Three',
-                            marker=dict( color='#ff7400')))
+                            marker=dict( color='#fcfd85')))
 
 vibration01_graph.add_trace(go.Scatter(x=x1_live, y=live01,
-                            mode='lines',
+                            mode='markers',
                             name='Live',
                             marker=dict( color='#000000')))
 
@@ -309,7 +309,7 @@ def clean_data(n):
                                 mode='lines',
                                 name='THROW: SVM'))
 
-    cnn_graph.update_traces(marker=dict(size=3),
+    cnn_graph.update_traces(marker=dict(size=3, color='#000000'),
                         selector=dict(mode='lines'))
     # cnn_graph.add_annotation(x=2, y=5,
     #             text="Text annotation with arrow",
