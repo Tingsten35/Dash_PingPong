@@ -14,9 +14,9 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 import os
 print(os. getcwd())
-tingsten_path = "C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/USB DISK"
+tingsten_path = "C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/DepotGithub/Depot"
 txa_path = '/home/txa/Documents/myFlightDeck/Dash_PingPong'
-path = txa_path
+path = tingsten_path
 diagram01 = np.load(path+"/Matrice1100mediumblanc4.npy")
 #diagram02 = np.load("/home/txa/Documents/data/ball-classifier-frontend/result.txt")
 
