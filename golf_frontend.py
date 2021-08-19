@@ -20,6 +20,11 @@ path = tingsten_path
 diagram01 = np.load(path+"/Matrice1100mediumblanc4.npy")
 #diagram02 = np.load("/home/txa/Documents/data/ball-classifier-frontend/result.txt")
 
+xr=np.load("C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/DepotGithub/Depot/xx.npy")
+yr=np.load("C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/DepotGithub/Depot/yy.npy")
+zr=np.load("C:/Users/rmercier/OneDrive - AllianTech/Desktop/Thomas git/DepotGithub/Depot/zz.npy")
+
+
 diagram02_string = open(path+'/result.txt', 'r').read()
 data = diagram02_string.split('\n')
 colour_output = data[0].split(';')[:-1]
@@ -254,16 +259,30 @@ def clean_data(n):
     svm_pred = list(map(float, svm_pred))
 
     svm_layout = go.Layout(
-        xaxis=dict(range=[-100,100]),
-        yaxis=dict(range=[-100,100]),
+        xaxis=dict(range=[-10,25]),
+        yaxis=dict(range=[-8,8]),
     )
     svm_graph = go.Figure(layout = svm_layout)
-
+    
+    colors=[(0,'#FF5733' ), (0.5, '#E2E2DD'),
+            (1, '#FFFF33')]
+            
+    svm_graph.add_trace(go.Contour(x=xr[0], y=yr[:, 0], z=zr, 
+                          coloraxis='coloraxis'))
+    # svm_graph.add_trace(go.Contour(x=xr[0], y=yr[:, 0], z=zr, 
+                          # coloraxis='coloraxis', 
+                         # contours=dict(start=np.nanmin(zr), 
+                         # end=np.nanmax(zr), size=0.2)))
+                                
+    svm_graph.update_layout(height=800, width=1000, coloraxis=dict(colorscale=colors), 
+                        showlegend=False, font=dict(size=24), font_family='Open Sans')
     svm_graph.add_trace(go.Scatter(x=[svm_pred[0]], y=[svm_pred[1]],
                                 marker_symbol='x',
                                 marker_color='#FF0000',
                                 mode='markers',
                                 name='svm_pred'))
+                                
+                                
     # svm_graph.add_trace(daq.Indicator(
     #                                                             id='colour_algo03',
     #                                                             value=True,
@@ -277,31 +296,31 @@ def clean_data(n):
     #     line_color="LightSeaGreen",
     # )
 
-    svm_graph.add_annotation(
-            x=svm_pred[0],
-            y=svm_pred[1],
-            xref="x",
-            yref="y",
-            text="["+str(svm_pred[0])+","+str(svm_pred[1])+"]",
-            #showarrow=True,
-            font=dict(
-                family="Courier New, monospace",
-                size=16,
-                color="#ffffff"
-                ),
-            align="center",
-            #arrowhead=2,
-            #arrowsize=1,
-            #arrowwidth=2,
-            #arrowcolor="#636363",
-            ax=20,
-            ay=-30,
-            bordercolor="#FF0000",
-            borderwidth=2,
-            borderpad=4,
-            bgcolor="#FF0000",
-            opacity=0.8
-            )
+    # svm_graph.add_annotation(
+            # x=svm_pred[0],
+            # y=svm_pred[1],
+            # xref="x",
+            # yref="y",
+            # text="["+str(svm_pred[0])+","+str(svm_pred[1])+"]",
+            # #showarrow=True,
+            # font=dict(
+                # family="Courier New, monospace",
+                # size=16,
+                # color="#ffffff"
+                # ),
+            # align="center",
+            # #arrowhead=2,
+            # #arrowsize=1,
+            # #arrowwidth=2,
+            # #arrowcolor="#636363",
+            # ax=20,
+            # ay=-30,
+            # bordercolor="#FF0000",
+            # borderwidth=2,
+            # borderpad=4,
+            # bgcolor="#FF0000",
+            # opacity=0.8
+            # )
 
     cnn_graph = go.Figure()
 
