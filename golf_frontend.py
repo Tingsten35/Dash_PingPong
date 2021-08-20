@@ -274,11 +274,12 @@ def clean_data(n):
                          # contours=dict(start=np.nanmin(zr), 
                          # end=np.nanmax(zr), size=0.2)))
                                 
-    svm_graph.update_layout(height=800, width=1000, coloraxis=dict(colorscale=colors), 
+    svm_graph.update_layout(coloraxis=dict(colorscale=colors), 
                         showlegend=False, font=dict(size=24), font_family='Open Sans')
     svm_graph.add_trace(go.Scatter(x=[svm_pred[0]], y=[svm_pred[1]],
                                 marker_symbol='x',
-                                marker_color='#FF0000',
+                                marker_size=20,
+                                marker_color='#FFFFFF',
                                 mode='markers',
                                 name='svm_pred'))
                                 
